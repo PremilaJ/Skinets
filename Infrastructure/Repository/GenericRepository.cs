@@ -76,5 +76,12 @@ namespace Infrastructure.Repository
         {
             return SpecificationEvaluator<T>.GetQuery<T,TResult>(context.Set<T>().AsQueryable(), spec);
         }
+
+        public async Task<int> CountSaync(ISpecification<T> spec)
+        {
+            var query= context.Set<T>().AsQueryable();
+            query=spec.ApplyCriteria(query);
+            return await query.CountAsync();
+        }
     }
 }

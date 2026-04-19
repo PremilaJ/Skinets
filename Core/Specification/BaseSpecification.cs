@@ -3,6 +3,7 @@ using Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Core.Specification
@@ -20,6 +21,20 @@ namespace Core.Specification
         public Expression<Func<T, object>>? OrderByDesc { get; private set; }
 
         public bool IsDistinct {  get; private set; }
+
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+        
+
+        public bool IsPagingEnabled { get; private set; }
+        protected void ApplyPagination(int skip,int take)
+        {
+            Take = take;
+            Skip = skip;
+            IsPagingEnabled = true;
+
+        }
         protected void ApplyDistinct()
         {
             IsDistinct = true;
@@ -34,6 +49,15 @@ namespace Core.Specification
         {
             OrderByDesc = orderByDescExp;
 
+        }
+
+        public IQueryable<T> ApplyCriteria(IQueryable<T> query)
+        {
+           if(criteria != null)
+            {
+                query =query.Where(criteria);
+            }
+            return query;
         }
     }
     public class BaseSpecification<T,TResult>(Expression<Func<T, bool>>? criteria) : BaseSpecification<T>(criteria),ISpecification<T,TResult>
