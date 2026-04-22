@@ -1,0 +1,19 @@
+<div class="mt-5 flex justify-center gap-4">
+<button mat-raised-button (click)="get400BadRequest()">Test BadRequest</button>
+<button mat-raised-button (click)="get401unauthorized()">Test Unauthorized</button>
+<button mat-raised-button (click)="get500InternalError()">Test InternalError</button>
+<button mat-raised-button (click)="get405ValidationError()">Test ValidationError</button>
+<button mat-raised-button (click)="get404NotfoundError()">Test Notfound</button>
+</div>
+@if (validationError){
+    <div class="mx-auto max-w-lg mt-5 bg-red-100">
+        <ul class="spac-y-2 p-2">
+            @for (error of validationError; track $index) {
+                <li class="text-red-800">
+                        {{error}}
+                </li>
+            }
+
+        </ul>
+    </div>
+}
