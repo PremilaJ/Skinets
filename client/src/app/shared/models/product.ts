@@ -4,8 +4,8 @@ export type Product={
     description:string
     price:number
     pictureUrl:string
-    brand:number
-    type:number
+    brand:string
+    type:string
     quantityInStock:number
 
 }

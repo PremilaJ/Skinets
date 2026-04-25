@@ -1,27 +1,40 @@
 <header class="shadow-md p-3 w-full max-h-20 fixed top-0 z-50 bg-white">
-    <div class=" flex align-middle items-center justify-between max-w-2xl mx-auto">
-        <img routerLink="/" src="images/logo.png" alt="logo" class="max-h-16" >
-        <nav class="flex gap-3 my-2 text-2xl uppercase" >
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
-            <a routerLink="/shop" routerLinkActive="active" >
-               Shop
-            </a>
-            <a routerLink="/test-error" routerLinkActive="active">Error</a>
+  <div class="flex items-center justify-between max-w-7xl mx-auto px-4">
 
-        </nav>
-        <div class="flex gap-3 align-middle">
-            <a matBadge="5" matBadgeSize="large" class="custom-badge"  mt-2 mr-2>
-            <mat-icon > shopping cart</mat-icon>
-             
-            </a>
-            <button mat-stroked-button>Login</button>
-            <button mat-stroked-button>Register</button>
-        </div>
+    <!-- Logo -->
+    <img routerLink="/" src="images/logo.png" alt="logo" class="max-h-16 cursor-pointer">
+
+    <!-- Nav -->
+    <nav class="flex gap-4 text-lg uppercase">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+      <a routerLink="/shop" routerLinkActive="active">Shop</a>
+      <a routerLink="/test-error" routerLinkActive="active">Error</a>
+    </nav>
+
+    <!-- Right section -->
+    <div class="flex items-center gap-4">
+
+      <!-- Cart -->
+      <a 
+        routerLink="/cart" 
+        routerLinkActive="active"
+        [matBadge]="cartSrvc.itemCount()" 
+        matBadgeSize="large"
+        class="custom-badge mt-2 mr-2"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+      </a>
+
+      <button mat-stroked-button>Login</button>
+      <button mat-stroked-button>Register</button>
 
     </div>
+  </div>
 </header>
-@if(busyService.loading){
-    <mat-progress-bar mode="indeterminate" class="fixed top-24 z-50">
 
-    </mat-progress-bar>
+@if (busyService.loading) {
+  <mat-progress-bar 
+    mode="indeterminate" 
+    class="fixed top-20 left-0 w-full z-50">
+  </mat-progress-bar>
 }
