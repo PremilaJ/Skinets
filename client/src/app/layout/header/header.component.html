@@ -24,10 +24,18 @@
       >
         <mat-icon>shopping_cart</mat-icon>
       </a>
-
-      <button mat-stroked-button>Login</button>
-      <button mat-stroked-button>Register</button>
-
+      @if(accountSrvc.currentUser())
+      {
+        <button mat-button [mat-menu-trigger-for]="menu">
+          <mat-icon>arrow_drop_down</mat-icon>
+          <span>{{accountSrvc.currentUser()?.email}}</span>
+        </button>
+      }
+      @else
+      {
+      <button routerLink="account/login">Login</button>
+      <button routerLink="account/register">Register</button>
+      }
     </div>
   </div>
 </header>
@@ -38,3 +46,18 @@
     class="fixed top-20 left-0 w-full z-50">
   </mat-progress-bar>
 }
+<mat-menu #menu="matMenu" class="px-5">
+  <button mat-menu-item class="px-3" routerLink="/cart">
+    <mat-icon>shopping_cart</mat-icon>
+    My Cart
+  </button>
+  <button mat-menu-item class="px-3" routerLink="/orders">
+    <mat-icon>history</mat-icon>
+    My Orders
+  </button>
+ <button mat-menu-item class="px-3" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+
+</mat-menu>

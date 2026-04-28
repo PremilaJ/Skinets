@@ -54,7 +54,7 @@ namespace API.Controllers
                 Address=user.Address.ToDto()
             });
         }
-        [HttpGet]
+        [HttpGet("auth-state")]
         public ActionResult GetAuthState()
         {
             return Ok(new
