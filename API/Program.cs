@@ -28,19 +28,19 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
     return ConnectionMultiplexer.Connect(configuration);
 });
 builder.Services.AddSingleton<ICartInterface, CartService>();
+builder.Services.AddScoped<IPaymentService,PaymentService>();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy
-            .WithOrigins("http://localhost:4200") // 👈 must match exactly
-            .AllowAnyHeader()
-            .AllowAnyMethod().AllowCredentials();
+        policy.WithOrigins("https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // important for cookies/auth
     });
-});
-var app = builder.Build();
+}); var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost/4200"));
 app.UseCors("AllowAngular");

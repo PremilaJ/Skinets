@@ -31,6 +31,7 @@
                         </dd>
                 </dl>
         </div>
+        @if(router.url != '/checkout'){
         <div class="flex flex-col gap-2">
             <button mat-flat-button routerLink="/checkout">
                 checkout
@@ -39,7 +40,7 @@
                 Continue shopping
             </button>
         </div>
-
+    }
     </div>
     <div class="rounded-lg border border-gray-200 space-y-4 bg-white shadow-sm">
         <form class="space-y-2 flex flex-col p-2">

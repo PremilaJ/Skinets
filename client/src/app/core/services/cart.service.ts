@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs';
 import { Product } from '../../shared/models/product';
 import { ProductDetailsComponent } from '../../features/shop/product-details/product-details.component';
 import { S } from '@angular/cdk/keycodes';
+import { DeliveryMethod } from '../../shared/models/deliverMethod';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class CartService {
 baseUrl=environment.apiUrl;
 private http=inject(HttpClient)
 cart=signal<Cart |null>(null);
+selectedDelivery=signal<DeliveryMethod| null>(null)
 itemCount= computed(()=>{
   return this.cart()?.items.reduce((sum,item)=>
     sum +item.quantity,0
@@ -22,10 +24,11 @@ itemCount= computed(()=>{
 
 totals=computed(()=>{
   const cart= this.cart();
+  const delivery=this.selectedDelivery()
   if(!cart) return null;
   
   const subTotal= cart.items.reduce((sum, item)=>sum+(item.price*item.quantity),0);
-  const shipping=0;
+  const shipping=delivery? delivery.price:0;
   const discount=0;
   return {
     subTotal,shipping,discount,total:subTotal+shipping-discount

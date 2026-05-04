@@ -1,0 +1,18 @@
+<div class="w-full">
+    <mat-radio-group [value]="cartSrvc.selectedDelivery"  
+                        (change)="updateDeliveryMethod($event.value)"class="grid grid-cols-2 gap-4">
+        @for (method of checkoutSrvc.deliveryMethods; track method.id) {
+            <label class="p-3 border border-gray-200 cursor-pointer w-full h-full hover:bg-purple-200">
+                <mat-radio-button class="w-full h-full" 
+                [checked]="cartSrvc.selectedDelivery()===method" [value]="method">
+                    <div class="w=full h-full flex flex-col">
+                        <strong>{{method.shortName}}-{{method.price | currency}}</strong>
+                        <span class="text-sm">{{method.deliveryTime}}</span>
+                          
+                    </div>
+                </mat-radio-button>
+            </label>
+        }
+    </mat-radio-group>
+
+</div>
